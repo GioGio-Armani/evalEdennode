@@ -1,0 +1,106 @@
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 mx-auto mb-5 mt-5 text-center">
+            <h1>Creez un nouvel article</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 mx-auto">
+            {{#if errors}}
+            {{#each errors}}
+            <div class="alert alert-danger" role="alert">
+                {{this.msg}}
+            </div>
+            {{/each}}
+            {{/if}}
+            {{#if article}}
+            <form action="/form-article/{{article._id}}" method="post" enctype="application/x-www-form-urlencoded">
+                {{else}}
+                <form action="/form-article" method="post" enctype="application/x-www-form-urlencoded">
+                    {{/if}}
+                    <input type="hidden" name="csrftoken" value="{{csrf}}" />
+                    <div class="mb-3 form-group">
+                        <label for="title" class="form-label">Nom</label>
+                        <input name="title" type="text" class="form-control" id="title" {{#if article}}
+                            value="{{article.title}}" {{/if}} />
+                    </div>
+                    <div class="mb-4">
+                        <label for="description" class="form-label">Description</label>
+                        <textarea name="description" class="form-control" id="description"
+                            rows="6">{{#if article}}{{article.description}}{{/if}}</textarea>
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <input type="text" class="form-control" id="poids" name="poids" {{#if article}}
+                                    value="{{article.poids}}" {{/if}}>
+                                <label for="poids">Poids</label>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="prix" name="prix" {{#if article}}
+                                        value="{{article.prix}}" {{/if}}>
+                                    <label for="prix">Prix</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="form-floating">
+                                <div class="form-floating">
+                                    <input type="text" class="form-control" id="quantite" name="quantite" {{#if
+                                        article}} value="{{article.quantite}}" {{/if}}>
+                                    <label for="quantite">Quantité</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row g-2 mb-4">
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="unit" name="unit">
+                                    <option selected>Choix de l'unité de vente</option>
+                                    <option value="litre" {{isSelected article.unit 'litre' }}>Litre</option>
+                                    <option value="kilo" {{isSelected article.unit 'kilo' }}>Kilo</option>
+                                    <option value="unite" {{isSelected article.unit 'unite' }}>Unité</option>
+                                </select>
+                                <label for="unit">Unité de vente</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="category" name="category">
+                                    <option selected>Choisir une catégorie</option>
+                                    <option value="plat" {{isSelected article.category 'plat' }}>Plat</option>
+                                    <option value="dessert" {{isSelected article.category 'dessert' }}>Dessert</option>
+                                    <option value="epicerie-sale" {{isSelected article.category 'epicerie-sale' }}>
+                                        Epicerie
+                                        salé
+                                    </option>
+                                    <option value="epicerie-sucre" {{isSelected article.category 'epicerie-sucre' }}>
+                                        Epicerie
+                                        sucré
+                                    </option>
+                                </select>
+                                <label for="category">Catégorie</label>
+                            </div>
+                        </div>
+                        <div class="col-md">
+                            <div class="form-floating">
+                                <select class="form-select" id="best" name="isBest">
+                                    <option value="true" {{isSelected article.isBest true}}>Oui</option>
+                                    <option value="false" {{isSelected article.isBest false}}>Non</option>
+                                </select>
+                                <label for="best">Produit phare</label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-3 d-grid gap-2">
+                        <button class="btn btn-outline-success" type="submit">{{#if article}}Modifier {{else}}
+                            Enregistrer {{/if}}</button>
+                    </div>
+                </form>
+        </div>
+    </div>
+</div>
