@@ -2,7 +2,7 @@ const articleModel = require("../models/articleModel");
 
 module.exports = {
   getArticles: async (req, res) => {
-    const articles = await articleModel.find().lean();
+    const articles = await articleModel.find().lean().sort({ createdAt: -1 });
     res.render("articles", { articles });
   },
   getListArticles: (req, res) => {
