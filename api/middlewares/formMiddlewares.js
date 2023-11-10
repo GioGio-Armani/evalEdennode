@@ -47,7 +47,7 @@ module.exports = {
       if (!errors.isEmpty()) {
         return res.render("form-article", {
           errors: errors.array(),
-          article: req.body,
+          articleInError: req.body,
         });
       }
       next();
